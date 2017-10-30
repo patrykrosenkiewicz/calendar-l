@@ -1,0 +1,108 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+$thin-border: 2px solid $red;
+
+body {
+  background-color: $red;
+  color: $black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat';
+  font-weight: 700;
+  min-height: 100vh;
+}
+
+main {
+  background-color: $cream;
+  flex-basis: 980px;
+}
+
+.calendar {
+  table-display: fixed;
+  width: 100%;
+}
+
+.current{
+  background-color: green;
+}
+.calendar__day__header,
+.calendar__day__cell {
+  border: $thin-border;
+  text-align: center;
+  width: 100% / 7; // fix width
+  vertical-align: middle;
+  &:first-child {
+    border-left: none;
+  }
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.calendar__day__header,
+.calendar__day__cell {
+  padding: .75rem 0 1.5rem;
+}
+
+.calendar__banner--month {
+  text-align: center;
+  padding: .75rem;
+  h1 {
+    background-color: $black;
+    color: $cream;
+    display: inline-block;
+    font-size: 3rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    padding: .5rem 2rem;
+    text-transform: uppercase;
+  }
+}
+
+.calendar__day__header {
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.calendar__day__cell {
+  font-size: 4rem;
+  position: relative;
+}
+
+tr:nth-child(odd) > .calendar__day__cell:nth-child(odd) {
+  color: $red;
+}
+
+tr:nth-child(even) > .calendar__day__cell:nth-child(even) {
+  color: $red;
+}
+
+.calendar__day__cell[data-bank-holiday] {
+  background-color: $black;
+  border-color: $black;
+  color: $cream;
+  &:after {
+    content: attr(data-bank-holiday);
+    color: $cream;
+    display: block;
+    font-size: .75rem;
+    font-weight: 400;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 1rem;
+    text-transform: uppercase;
+  }
+}
