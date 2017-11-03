@@ -52,7 +52,7 @@
              }else{
                echo '<td class="calendar__day__cell"><a href="'.$tempDate->format("j")."/".$tempDate->format("n")."/".$tempDate->format("Y").'">';
                }
-             if(in_array($tempDate->day . " " . $tempDate->month, $tasksDates)){
+             if(in_array($tempDate->year ."-".$tempDate->month."-".$tempDate->day, $tasksDates)){
                    echo "! ";
              }
                echo $tempDate->day;
@@ -62,7 +62,7 @@
            }
            echo '</tr>';
 
-       }while($tempDate->month == $today->month);
+       }while($tempDate->month <= $today->month);
 
           @endphp
         </tbody>

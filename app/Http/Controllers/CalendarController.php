@@ -31,7 +31,7 @@ class CalendarController extends Controller
         $tasks = Task::all()->where('completed', '=', '0');
         if (count($tasks) > 0) {
             foreach ($tasks as $task) {
-             $tasksDates[] = $task->created_at->format('j n');
+             $tasksDates[] = $task->task_date;
             }
          }else{
             $tasksDates[] = 0;

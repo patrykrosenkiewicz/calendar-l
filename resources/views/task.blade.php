@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-			<h1 class="col-12">Plan something for your chosen date: {{$day}}-{{$month}}-{{$year}}</h1>
+			<h1 class="col-12">Plan something for your chosen date: {{$date}}</h1>
 			<form class="" action="/task" method="post">
 				<div class="form-group">
 				  {{ csrf_field() }}
@@ -18,11 +18,12 @@
     		      	<textarea class="form-control" id="bodyTextarea" name="body" placeholder="what do you want to do?" rows="3" required></textarea>
     		      </div>
 				</div>
+				<input type="hidden" name="task_date" value="{{$date}}">
 				<input class="btn btn-primary" type="submit" name="submit" value="submit">
 			</form>
 
 
-			@if(count($tasks)>1)
+			@if(count($tasks)>=1)
 				<h1>Your tasks for this day</h1>
 			<ul>
 			  @foreach ($tasks as $task)

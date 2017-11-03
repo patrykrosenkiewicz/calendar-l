@@ -27,10 +27,8 @@ class TaskController extends Controller
     public function index($day, $month, $year)
     {
         $date = $year.'-'.$month.'-'.$day;
-        $tasks = \DB::table("tasks")
-            ->whereRaw('DATE(created_at) = ?',[$date])
-            ->get();
-        return view('task', compact('tasks', 'day', 'month', 'year'));
+        $tasks = \DB::table("tasks")->where('task_date', '=', $date)->get();
+        return view('task', compact('tasks', 'day', 'month', 'year', 'date'));
     }
 
     public function store(){
@@ -38,10 +36,11 @@ class TaskController extends Controller
 
       $task->title = request('title');
       $task->body = request('body');
+      $task->task_date = request('task_date');
 
       $task->save();
 
-      return redirect('/calendar');
+      return back();
 
     }
 
