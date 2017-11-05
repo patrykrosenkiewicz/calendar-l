@@ -26,12 +26,16 @@ class TaskController extends Controller
      */
     public function index($day, $month, $year)
     {
+        #returns view of a day with all the tasks for the day
+
         $date = $year.'-'.$month.'-'.$day;
         $tasks = \DB::table("tasks")->where('task_date', '=', $date)->get();
         return view('task', compact('tasks', 'day', 'month', 'year', 'date'));
     }
 
     public function store(){
+        #saves the task in a db
+
       $task = new Task;
 
       $task->title = request('title');
@@ -45,7 +49,6 @@ class TaskController extends Controller
     }
 
     public function currentDayTask(){
-        $today = $today = Carbon::today();
         
     }
 }

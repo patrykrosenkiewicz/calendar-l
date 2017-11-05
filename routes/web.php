@@ -17,7 +17,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
+#set current date with all uncomplited tasks than call the makeCalendar method
 Route::get('/calendar', 'CalendarController@index');
+
+
+Route::get('calendar/next', 'CalendarController@nextMonth');
+Route::get('calendar/previous', 'CalendarController@previousMonth');
+
 Route::get('/{month}/{day}/{year}', 'TaskController@index');
 
 Route::post('/task', 'TaskController@store');

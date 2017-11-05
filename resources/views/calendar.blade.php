@@ -20,7 +20,9 @@
 
   <table class="calendar">
     <caption class="calendar__banner--month">
+      <a href="{{ url('/calendar/previous') }}"><</a>
       <h1>{{$today->format('F Y')}}</h1>
+      <a href="{{ url('/calendar/next') }}">></a>
     </caption>
     <tr>
       <th class="calendar__day__header">Mon</th>
