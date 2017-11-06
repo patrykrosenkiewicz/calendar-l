@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Task;
 
+
 class TaskController extends Controller
 {
     /**
@@ -14,9 +15,13 @@ class TaskController extends Controller
      * @return void
      */
 
-    public function __construct()
+    private $task;
+
+    public function __construct(Task $task)
     {
         $this->middleware('auth');
+
+        $this->task = $task;
     }
 
     /**
@@ -30,17 +35,19 @@ class TaskController extends Controller
 
         $date = $year.'-'.$month.'-'.$day;
         $tasks = \DB::table("tasks")->where('task_date', '=', $date)->get();
+
         return view('task', compact('tasks', 'day', 'month', 'year', 'date'));
     }
 
     public function store(){
         #saves the task in a db
 
-      $task = new Task;
+      $task = $this->task;
 
       $task->title = request('title');
       $task->body = request('body');
       $task->task_date = request('task_date');
+      $task->user_id = auth()->id();
 
       $task->save();
 
