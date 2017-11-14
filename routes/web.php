@@ -27,3 +27,6 @@ Route::get('calendar/previous', 'CalendarController@previousMonth');
 Route::get('/{month}/{day}/{year}', 'TaskController@index');
 
 Route::post('/task', 'TaskController@store');
+
+
+

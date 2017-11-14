@@ -6,12 +6,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Task;
+use JavaScript;
 
 class CalendarController extends Controller
 {
-    private $today;
-    private $tasksDates;
-
+    
     /**
      * Create a new controller instance.
      *
@@ -20,9 +19,6 @@ class CalendarController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-
-        #generates current date
-        $this->today = Carbon::today();
 
         
     }
@@ -35,24 +31,15 @@ class CalendarController extends Controller
 
     public function makeCalendar(Task $dates)
     {
-        $today = $this->today;
-        $tempDate = Carbon::createFromDate($today->year, $today->month, 1);
-
-        #set the array of dates with uncomplited tasks
         $user_id = auth()->id();
-        $this->tasksDates = $dates->uncomplited($user_id);
+        $tasksDates = $dates->uncomplited($user_id);
+        $tasksDates = json_encode($tasksDates);
 
-        #setting weeeknd to start from monday
-        $skip = $tempDate->dayOfWeek + 6; 
-        
-        #getting all the uncomplited tasks (probably has to switch it for model or another method)
-        $tasksDates = $this->tasksDates;
-        return view('calendar', compact('today', 'tempDate', 'skip', 'tasksDates'));
-    }
+        JavaScript::put([
+            'tasksDates'=> $tasksDates
+        ]);
 
-    public function nextMonth(){
-    }
 
-    public function previousMonth(){
+        return view('calendar');
     }
 }

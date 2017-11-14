@@ -18,60 +18,25 @@
                     <p>In a near future you are going to be able to see a pretty nice webaplication to plan your life!</p>
                     <h5>JUST W8 4 IT</h5>
 
-  <table class="calendar">
-    <caption class="calendar__banner--month">
-      <a href="{{ url('/calendar/previous') }}"><</a>
-      <h1>{{$today->format('F Y')}}</h1>
-      <a href="{{ url('/calendar/next') }}">></a>
-    </caption>
-    <tr>
-      <th class="calendar__day__header">Mon</th>
-      <th class="calendar__day__header">Tue</th>
-      <th class="calendar__day__header">Wed</th>
-      <th class="calendar__day__header">Thu</th>
-      <th class="calendar__day__header">Fri</th>
-      <th class="calendar__day__header">Sat</th>
-      <th class="calendar__day__header">Sun</th>
-    </tr>
-  </thead>
-  <tbody>
-    @php
-        for($i = 0; $i < $skip; $i++)
-          {
-            $tempDate->subDay();
-          }
+                              <table id="calendar-js" class="calendar">
+                                <thead>
+                                  <caption id="caption" class="calendar__banner--month">
+                                  <h1 id="month"></h1>
+                                  </caption>
+                                  <tr id="dayName">
+                                  </tr>
+                                </thead>
 
+                                <tbody id="tableBody">
+                                  
 
-          //loops through month
-       do
-       {
-           echo '<tr>';
-           //loops through each week
-           for($i=0; $i < 7; $i++)
-           {
-             if($tempDate->month == $today->month && $tempDate->day == $today->day){
-                echo '<td class="calendar__day__cell current"><a href="'.$tempDate->format("j")."/".$tempDate->format("n")."/".$tempDate->format("Y").'">';
-             }else{
-               echo '<td class="calendar__day__cell"><a href="'.$tempDate->format("j")."/".$tempDate->format("n")."/".$tempDate->format("Y").'">';
-               }
-             if(in_array($tempDate->year ."-".$tempDate->month."-".$tempDate->day, $tasksDates)){
-                   echo "! ";
-             }
-               echo $tempDate->day;
-               echo '</a></td>';
-
-               $tempDate->addDay();
-           }
-           echo '</tr>';
-
-       }while($tempDate->month <= $today->month);
-
-          @endphp
-        </tbody>
-          </table>
+                                </tbody>
+                              </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 @endsection
