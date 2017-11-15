@@ -93,10 +93,7 @@ var skip = tempDate.getDay();
 
 for (i = 1; i < skip; ++i) {
     tempDate.setDate(tempDate.getDate() - 1);
-    console.log(tempDate.getDate());
 };
-
-console.log(tasksDates);
 
 //set the h1 tag in caption for a current month and year
 month.innerHTML = polishMonths[monthIndex] + ' ' + year;
@@ -111,6 +108,8 @@ for (var i = 0; i < polishDays.length; i++) {
 };
 
 var tableBody = document.getElementById('tableBody');
+
+//creates body of the calendar table
 do {
     tr = document.createElement('tr');
     tableBody.appendChild(tr);
@@ -120,9 +119,12 @@ do {
         aLink = document.createElement('a');
         aLink.href = tempDate.getDate() + '/' + (monthIndex + 1) + '/' + tempDate.getFullYear();
 
-        var dateIncluded = tempDate.getFullYear() + '-' + (tempDate.getMonth() + 1) + '-' + tempDate.getDate();
-        console.log(dateIncluded);
-        if (tasksDates.indexOf(dateIncluded) > -1) {
+        //concatenate date parts in a string
+        var dateIncluded = '"' + tempDate.getFullYear() + '-' + (monthIndex + 1) + '-' + tempDate.getDate() + '"';
+        if (tasksDates.includes(dateIncluded)) {
+            console.log(tasksDates);
+            console.log(dateIncluded);
+            console.log(tasksDates.includes(dateIncluded));
             aLink.textContent = tempDate.getDate() + '!';
         } else {
             aLink.textContent = tempDate.getDate();

@@ -21,12 +21,14 @@ Auth::routes();
 Route::get('/calendar', 'CalendarController@makeCalendar');
 
 
-Route::get('calendar/next', 'CalendarController@nextMonth');
-Route::get('calendar/previous', 'CalendarController@previousMonth');
 
 Route::get('/{month}/{day}/{year}', 'TaskController@index');
 
 Route::post('/task', 'TaskController@store');
 
 
-
+Route::get('/logout', function(){
+    Session::flush();
+    Auth::logout();
+    return Redirect::to("/");
+});

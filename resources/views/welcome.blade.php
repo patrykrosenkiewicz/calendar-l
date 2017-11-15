@@ -18,8 +18,9 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
+                    <a href="{{ url('/calendar') }}">calendar</a>
                     @auth
-                        <a href="{{ url('/calendar') }}">calendar</a>
+                         <a href="{{ url('/logout') }}">Logout</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>

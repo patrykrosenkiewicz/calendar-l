@@ -13,13 +13,10 @@ const year = now.getFullYear();
 var tempDate = new Date(year, monthIndex, 1);
 var skip = tempDate.getDay();
 
-
 for(i=1; i<skip; ++i){
 	tempDate.setDate(tempDate.getDate() - 1);
-	console.log(tempDate.getDate());
 };
 
-console.log(tasksDates);
 
 
 
@@ -37,6 +34,8 @@ for (var i = 0; i < polishDays.length; i++) {
 };
 
 const tableBody = document.getElementById('tableBody');
+
+//creates body of the calendar table
 do
     {
         tr = document.createElement('tr')
@@ -48,10 +47,13 @@ do
         	aLink = document.createElement('a');
         	aLink.href = tempDate.getDate()+'/'+(monthIndex+1)+'/'+tempDate.getFullYear();
         	
-        	var dateIncluded = tempDate.getFullYear()+'-'+(tempDate.getMonth()+1)+'-'+tempDate.getDate();
-        	console.log(dateIncluded);
-        	if (tasksDates.indexOf(dateIncluded)>-1)
+        	//concatenate date parts in a string
+        	var dateIncluded ='"'+tempDate.getFullYear()+'-'+(monthIndex+1)+'-'+tempDate.getDate()+'"';
+        	if (tasksDates.includes(dateIncluded))
         	 {
+        	 	console.log(tasksDates);
+        	 	console.log(dateIncluded);
+        	 	console.log(tasksDates.includes(dateIncluded));
         	 	aLink.textContent = tempDate.getDate()+'!';
         	 }else
         	 {
