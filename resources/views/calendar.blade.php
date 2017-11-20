@@ -19,12 +19,14 @@
                     <h5>JUST W8 4 IT</h5>
 
                               <table id="calendar-js" class="calendar">
-                                <thead>
+                                <thead id="tableHead">
                                   <caption id="caption" class="calendar__banner--month">
+                                  <button id="previousMonth"><</button>
                                   <h1 id="month"></h1>
+                                  <button id="nextMonth">></button>
                                   </caption>
-                                  <tr id="dayName">
-                                  </tr>
+
+
                                 </thead>
 
                                 <tbody id="tableBody">
