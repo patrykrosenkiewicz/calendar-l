@@ -13,18 +13,16 @@ const year = now.getFullYear();
 var tempDate = new Date(year, monthIndex, 1);
 var skip = tempDate.getDay();
 
-for(i=1; i<skip; ++i){
-	tempDate.setDate(tempDate.getDate() - 1);
-};
-
-
 
 
 //set the h1 tag in caption for a current month and year
 month.innerHTML = polishMonths[monthIndex] +' '+ year;
 
-
-//appends a default days names 
+window.onload = function loadCalendar(){
+//appends a default days names
+for(i=1; i<skip; ++i){
+	tempDate.setDate(tempDate.getDate() - 1);
+};
 
 for (var i = 0; i < polishDays.length; i++) {
 	th = document.createElement('th');
@@ -75,4 +73,5 @@ do
         };
 
     }while(tempDate.getMonth() == monthIndex);
+};
 
