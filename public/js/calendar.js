@@ -76,137 +76,293 @@ module.exports = __webpack_require__(45);
 /***/ 45:
 /***/ (function(module, exports) {
 
-var polishDays = ['poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota', 'niedziela'];
-var polishMonths = ['styczeń', 'luty', 'marzec', 'kwiecieć', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
+var calendar = {
+	polishDays: ['poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota', 'niedziela'],
+	polishMonths: ['styczeń', 'luty', 'marzec', 'kwiecieć', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'],
 
-var polishDaysLength = polishDays.length;
+	init: function init() {
+		this.cacheDom();
+		this.setVariables();
+		this.loadCalendar();
+		this.bindEvents();
+	},
 
-//h1 tag in dom in which appends current month and year
-var month = document.getElementById('month');
+	cacheDom: function cacheDom() {
+		this.polishDaysLength = this.polishDays.length;
 
-//table row in which appends polish day names
-var dayName = document.getElementById('dayName');
+		//h1 tag in dom in which appends current month and year
+		this.month = document.getElementById('month');
 
-var tableBody = document.getElementById('tableBody');
-var tableHead = document.getElementById('tableHead');
+		//table row in which appends polish day names
+		this.dayName = document.getElementById('dayName');
 
-var now;
-var monthIndex;
-var year;
-var skip;
-window.onload = function setVariables() {
+		this.tableBody = document.getElementById('tableBody');
+		this.tableHead = document.getElementById('tableHead');
 
-	now = new Date();
-	monthIndex = now.getMonth();
-	year = now.getFullYear();
+		this.followingMonth = document.getElementById('nextMonth');
+		this.prevMonth = document.getElementById('previousMonth');
+	},
 
-	tempDate = new Date(year, monthIndex, 1);
+	setVariables: function setVariables() {
+		this.now = new Date();
+		this.monthIndex = this.now.getMonth();
+		this.year = this.now.getFullYear();
 
-	skip = tempDate.getDay();
-	//appends a default days names
-	for (i = 1; i < skip; ++i) {
-		tempDate.setDate(tempDate.getDate() - 1);
-	};
+		this.tempDate = new Date(this.year, this.monthIndex, 1);
 
-	return loadCalendar();
-};
-
-function loadCalendar() {
-	//set the h1 tag in caption for a current month and year
-	month.innerHTML = polishMonths[monthIndex] + ' ' + year;
-
-	tableHeadTr = document.createElement('tr');
-	tableHeadTr.id = 'dayName';
-	tableHead.appendChild(tableHeadTr);
-
-	//creates a header of the calendar with polish days
-	for (var i = 0; i < polishDays.length; i++) {
-		th = document.createElement('th');
-		th.className = 'calendar__day__header';
-		th.textContent = polishDays[i];
-		tableHeadTr.appendChild(th);
-	};
-	//creates body of the calendar table
-	do {
-		tr = document.createElement('tr');
-		tableBody.appendChild(tr);
-		//loops through each week
-		for (i = 0; i < 7; i++) {
-			td = document.createElement('td');
-			aLink = document.createElement('a');
-			aLink.href = tempDate.getDate() + '/' + (monthIndex + 1) + '/' + tempDate.getFullYear();
-
-			//concatenate date parts in a string
-			var dateIncluded = '"' + tempDate.getFullYear() + '-' + (monthIndex + 1) + '-' + tempDate.getDate() + '"';
-			if (tasksDates.includes(dateIncluded)) {
-				aLink.textContent = tempDate.getDate() + '!';
-			} else {
-				aLink.textContent = tempDate.getDate();
-			};
-
-			td.appendChild(aLink);
-
-			tr.appendChild(td);
-			if (tempDate.getDate() == now.getDate() && tempDate.getMonth() == monthIndex) {
-				td.className = 'calendar__day__cell current';
-			} else {
-				td.className = 'calendar__day__cell';
-			}
-
-			tempDate.setDate(tempDate.getDate() + 1);
+		this.skip = this.tempDate.getDay();
+		//appends a default days names
+		for (i = 1; i < this.skip; ++i) {
+			this.tempDate.setDate(this.tempDate.getDate() - 1);
 		};
-	} while (tempDate.getMonth() == monthIndex);
+	},
+
+	loadCalendar: function loadCalendar() {
+		//set the h1 tag in caption for a current month and year
+		this.month.innerHTML = this.polishMonths[this.monthIndex] + ' ' + this.year;
+
+		tableHeadTr = document.createElement('tr');
+		tableHeadTr.id = 'dayName';
+		this.tableHead.appendChild(tableHeadTr);
+
+		//creates a header of the calendar with polish days
+		for (var i = 0; i < this.polishDaysLength; i++) {
+			th = document.createElement('th');
+			th.className = 'calendar__day__header';
+			th.textContent = this.polishDays[i];
+			tableHeadTr.appendChild(th);
+		};
+		//creates body of the calendar table
+		do {
+			tr = document.createElement('tr');
+			this.tableBody.appendChild(tr);
+			//loops through each week
+			for (i = 0; i < 7; i++) {
+				td = document.createElement('td');
+				aLink = document.createElement('a');
+				aLink.href = this.tempDate.getDate() + '/' + (this.monthIndex + 1) + '/' + this.tempDate.getFullYear();
+
+				//concatenate date parts in a string
+				var dateIncluded = '"' + this.tempDate.getFullYear() + '-' + (this.monthIndex + 1) + '-' + this.tempDate.getDate() + '"';
+				if (tasksDates.includes(dateIncluded)) {
+					aLink.textContent = this.tempDate.getDate() + '!';
+				} else {
+					aLink.textContent = this.tempDate.getDate();
+				};
+
+				td.appendChild(aLink);
+
+				tr.appendChild(td);
+				if (this.tempDate.getDate() == this.now.getDate() && this.tempDate.getMonth() == this.monthIndex) {
+					td.className = 'calendar__day__cell current';
+				} else {
+					td.className = 'calendar__day__cell';
+				}
+
+				this.tempDate.setDate(this.tempDate.getDate() + 1);
+			};
+		} while (this.tempDate.getMonth() == this.monthIndex);
+	},
+
+	bindEvents: function bindEvents() {
+		this.prevMonth.addEventListener('click', this.previousMonth(this));
+		this.followingMonth.addEventListener('click', this.nextMonth(this));
+	},
+
+	previousMonth: function previousMonth(event) {
+
+		var tr = document.getElementsByTagName('tr');
+		for (var i = tr.length; i--;) {
+			tr[i].remove();
+		};
+
+		previous = new Date(this.year, this.monthIndex - 1);
+		this.monthIndex = previous.getMonth();
+		this.year = previous.getFullYear();
+
+		this.tempDate = new Date(this.year, this.monthIndex, 1);
+
+		this.skip = this.tempDate.getDay();
+		if (this.skip < 1) {
+			this.skip = 7;
+		};
+		for (i = 1; i < this.skip; ++i) {
+			this.tempDate.setDate(this.tempDate.getDate() - 1);
+		};
+
+		this.loadCalendar();
+	},
+
+	nextMonth: function nextMonth(event) {
+
+		alert("nextMonth");
+		var tr = document.getElementsByTagName('tr');
+		for (var i = tr.length; i--;) {
+			tr[i].remove();
+		};
+
+		previous = new Date(this.year, this.monthIndex + 1);
+		this.monthIndex = previous.getMonth();
+		this.year = previous.getFullYear();
+
+		this.tempDate = new Date(this.year, this.monthIndex, 1);
+
+		this.skip = this.tempDate.getDay();
+		if (this.skip < 1) {
+			this.skip = 7;
+		};
+		for (i = 1; i < this.skip; ++i) {
+			this.tempDate.setDate(this.tempDate.getDate() - 1);
+		};
+
+		this.loadCalendar();
+	}
+
 };
 
-document.getElementById('previousMonth').addEventListener('click', function previousMonth() {
-	var tr = document.getElementsByTagName('tr');
-	for (var i = tr.length; i--;) {
-		tr[i].remove();
-	};
+calendar.init();
 
-	previous = new Date(year, monthIndex - 1);
-	monthIndex = previous.getMonth();
-	year = previous.getFullYear();
+// const polishDays = ['poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota', 'niedziela'];
+// const polishMonths = ['styczeń', 'luty', 'marzec', 'kwiecieć', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
 
-	tempDate = new Date(year, monthIndex, 1);
+// const polishDaysLength = polishDays.length;
 
-	console.log(tempDate);
+// //h1 tag in dom in which appends current month and year
+// const month = document.getElementById('month');
 
-	skip = tempDate.getDay();
-	if (skip < 1) {
-		skip = 7;
-	};
-	for (i = 1; i < skip; ++i) {
-		tempDate.setDate(tempDate.getDate() - 1);
-	};
+// //table row in which appends polish day names
+// const dayName = document.getElementById('dayName');
 
-	return loadCalendar();
-});
+// const tableBody = document.getElementById('tableBody');
+// const tableHead = document.getElementById('tableHead');
 
-document.getElementById('nextMonth').addEventListener('click', function nextMonth() {
-	var tr = document.getElementsByTagName('tr');
-	for (var i = tr.length; i--;) {
-		tr[i].remove();
-	};
+// var now;
+// var monthIndex;
+// var year;
+// var skip;
+// window.onload = function setVariables(){
 
-	previous = new Date(year, monthIndex + 1);
-	monthIndex = previous.getMonth();
-	year = previous.getFullYear();
+// 	now = new Date();
+// 	monthIndex = now.getMonth();
+// 	year = now.getFullYear();
 
-	tempDate = new Date(year, monthIndex, 1);
+// 	tempDate = new Date(year, monthIndex, 1);
 
-	console.log(tempDate);
+// 	skip = tempDate.getDay();
+// 	//appends a default days names
+// 	for(i=1; i<skip; ++i){
+// 		tempDate.setDate(tempDate.getDate() - 1);
+// 	};
 
-	skip = tempDate.getDay();
-	if (skip < 1) {
-		skip = 7;
-	};
-	for (i = 1; i < skip; ++i) {
-		tempDate.setDate(tempDate.getDate() - 1);
-	};
+// 	return loadCalendar();
 
-	return loadCalendar();
-});
+// }
+
+
+// function loadCalendar(){
+// //set the h1 tag in caption for a current month and year
+// month.innerHTML = polishMonths[monthIndex] +' '+ year;
+
+// tableHeadTr = document.createElement('tr');
+// tableHeadTr.id = 'dayName';
+// tableHead.appendChild(tableHeadTr);
+
+// //creates a header of the calendar with polish days
+// 	for (var i = 0; i < polishDays.length; i++) {
+// 		th = document.createElement('th');
+// 		th.className = 'calendar__day__header';
+// 		th.textContent =  polishDays[i];
+// 		tableHeadTr.appendChild(th);
+// 	};
+// //creates body of the calendar table
+// do
+//     {
+//         tr = document.createElement('tr')
+//         tableBody.appendChild(tr)
+//         //loops through each week
+//         for(i=0; i < 7; i++)
+//         {
+//         	td = document.createElement('td');
+//         	aLink = document.createElement('a');
+//         	aLink.href = tempDate.getDate()+'/'+(monthIndex+1)+'/'+tempDate.getFullYear();
+
+//         	//concatenate date parts in a string
+//         	var dateIncluded ='"'+tempDate.getFullYear()+'-'+(monthIndex+1)+'-'+tempDate.getDate()+'"';
+//         	if (tasksDates.includes(dateIncluded))
+//         	 {
+//         	 	aLink.textContent = tempDate.getDate()+'!';
+//         	 }else
+//         	 {
+//         	 	aLink.textContent = tempDate.getDate();
+//         	 };
+
+//         	td.appendChild(aLink);
+
+//             tr.appendChild(td);
+//         	if (tempDate.getDate() == now.getDate() && tempDate.getMonth() == monthIndex) {
+//         		td.className = 'calendar__day__cell current';
+//         	}else{
+//         		td.className = 'calendar__day__cell';
+//         	}
+
+
+//             tempDate.setDate(tempDate.getDate() + 1);
+//         };
+
+//     }while(tempDate.getMonth() == monthIndex);
+// };
+
+// document.getElementById('previousMonth').addEventListener('click', function previousMonth(){
+// var tr = document.getElementsByTagName('tr');
+// for (var i = tr.length; i--; ) {
+//   		tr[i].remove();
+// };
+
+// previous = new Date(year, monthIndex-1,);
+// monthIndex = previous.getMonth();
+// year = previous.getFullYear();
+
+// tempDate = new Date(year, monthIndex, 1);
+
+// console.log(tempDate);
+
+// skip = tempDate.getDay();
+// if (skip < 1) {
+// 	skip = 7;
+// };
+// for(i=1; i<skip; ++i){
+// 	tempDate.setDate(tempDate.getDate() - 1);
+// };
+
+// 	return loadCalendar();
+
+// });
+
+// document.getElementById('nextMonth').addEventListener('click', function nextMonth(){
+// 		var tr = document.getElementsByTagName('tr');
+// 	for (var i = tr.length; i--; ) {
+//    		tr[i].remove();
+// 	};
+
+// 	previous = new Date(year, monthIndex+1,);
+// 	monthIndex = previous.getMonth();
+// 	year = previous.getFullYear();
+
+// 	tempDate = new Date(year, monthIndex, 1);
+
+// 	console.log(tempDate);
+
+// 	skip = tempDate.getDay();
+// 	if (skip < 1) {
+// 		skip = 7;
+// 	};
+// 	for(i=1; i<skip; ++i){
+// 		tempDate.setDate(tempDate.getDate() - 1);
+// 	};
+
+// 	return loadCalendar();
+
+// });
 
 /***/ })
 
