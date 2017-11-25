@@ -4,7 +4,7 @@ var calendar = {
 
 	 init: function(){
 	 	this.cacheDom();
-	 	this.setVariables();
+	 	this.setCurrentDate();
 	 	this.loadCalendar();
 	 	this.bindEvents();
 	 },
@@ -25,7 +25,7 @@ var calendar = {
 		 this.prevMonth = document.getElementById('previousMonth');
 	 },
 
-	 setVariables: function(){
+	 setCurrentDate: function(){
 	 	this.now = new Date();
 		this.monthIndex = this.now.getMonth();
 		this.year = this.now.getFullYear();
@@ -95,8 +95,8 @@ var calendar = {
 	},
 
 	bindEvents: function(){
-		this.prevMonth.addEventListener('click', this.previousMonth(this));
-		this.followingMonth.addEventListener('click', this.nextMonth(this));
+		this.prevMonth.addEventListener('click', this.previousMonth.bind(this));
+		this.followingMonth.addEventListener('click', this.nextMonth.bind(this));
 	},
 
 	previousMonth: function(event){
@@ -126,8 +126,6 @@ var calendar = {
 	},
 
 	nextMonth: function(event){
-
-		alert("nextMonth");
 		var tr = document.getElementsByTagName('tr');
 		for (var i = tr.length; i--; ) {
 	   		tr[i].remove();
