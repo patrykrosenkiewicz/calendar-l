@@ -28,9 +28,23 @@ main {
   flex-basis: 980px;
 }
 
+.calendar-container{
+  background-color: #FFAAAA;
+}
+
 .calendar {
   table-display: fixed;
   width: 100%;
+  min-height: 50vh;
+}
+.calendar-heading{
+  display: table;
+  margin:0 auto;
+}
+
+.calendar-description{
+  display: table;
+  margin:0 auto;
 }
 
 .current{
@@ -41,6 +55,7 @@ main {
   border: $thin-border;
   text-align: center;
   width: 100% / 7; // fix width
+  height: 100% / 6;
   vertical-align: middle;
   &:first-child {
     border-left: none;
@@ -72,12 +87,13 @@ main {
 
 .calendar__day__header {
   font-size: 1rem;
+  max-width: 100% / 7;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .calendar__day__cell {
-  font-size: 4rem;
+  font-size: 3rem;
   position: relative;
 }
 
@@ -89,20 +105,11 @@ tr:nth-child(even) > .calendar__day__cell:nth-child(even) {
   color: $red;
 }
 
-.calendar__day__cell[data-bank-holiday] {
-  background-color: $black;
-  border-color: $black;
-  color: $cream;
-  &:after {
-    content: attr(data-bank-holiday);
-    color: $cream;
-    display: block;
-    font-size: .75rem;
-    font-weight: 400;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 1rem;
-    text-transform: uppercase;
-  }
+.task-body{
+  display: block;
 }
+
+#month{
+  min-width: 400px;
+}
+

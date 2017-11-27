@@ -27,9 +27,13 @@
 				<h1>Your tasks for this day</h1>
 			<ul>
 			  @foreach ($tasks as $task)
-			  <li>
+			  <li id="">
 			    {{$task->title}}
+			  	<a href="edit" class="button">edit</a>
 			  </li>
+			  <p class="task-body">
+			  	{{$task->body}}
+			  </p>
 			  @endforeach
 			</ul>
 			@else

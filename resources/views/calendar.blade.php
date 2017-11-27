@@ -4,19 +4,21 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Calendar</div>
+            <div class="calendar-container">
+                <h1 class="calendar-heading">Calendar</h1>
 
-                <div class="panel-body">
+                <div class="body">
                     @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    <h1>Welcome!</h1>
-                    <p>In a near future you are going to be able to see a pretty nice webaplication to plan your life!</p>
-                    <h5>JUST W8 4 IT</h5>
+                              <div class="calendar-description">
+                                
+                                <h1>Welcome!</h1>
+                                <p>In a near future you are going to be able to see a pretty nice webaplication to plan your life!</p>
+                                <h5>JUST W8 4 IT</h5>
+                              </div>
 
                               <table id="calendar-js" class="calendar">
                                 <thead id="tableHead">
