@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('head_scripts')
+    @parent
+<!--Captcha script -->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -61,8 +67,9 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group">
+                        <div class="form-group">
+                            
+                            <div class="col-md-6 col-md-offset-4">
                              <div class="g-recaptcha" data-sitekey="{{env('GOOGLE_RECAPTCHA_KEY')}}"></div>
                              @if ($errors->has('g-recaptcha-response'))
                                     <span class="help-block">

@@ -13,8 +13,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <!--Captcha script -->
-    <script src='https://www.google.com/recaptcha/api.js'></script>
+    @section('head_scripts')
+
+    @show
 
 </head>
 <body>
@@ -51,6 +52,8 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li class="dropdown">
+                                <a href="/calendar">calendar</a>
+                                <a href="/">landing page</a>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>

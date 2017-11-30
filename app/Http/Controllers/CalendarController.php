@@ -18,7 +18,6 @@ class CalendarController extends Controller
      */
     public function __construct()
     {
-
         
     }
 
@@ -39,6 +38,6 @@ class CalendarController extends Controller
         ]);
 
 
-        return view('calendar');
+        return view('calendar.calendar');
     }
 }

@@ -34,7 +34,7 @@ class TaskController extends Controller
         #returns view of a day with all the tasks for the day
         $tasks = \DB::table("tasks")->where('task_date', '=', $date)->get();
 
-        return view('task', compact('tasks','date'));
+        return view('calendar.task', compact('tasks','date'));
     }
 
     public function store(){
@@ -55,7 +55,7 @@ class TaskController extends Controller
 
     public function edit($id){
         $task = $this->task::find($id);
-        return view('edit', compact('id', 'task'));
+        return view('calendar.edit', compact('id', 'task'));
     }
 
     public function update($id){
