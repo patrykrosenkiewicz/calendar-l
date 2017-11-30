@@ -82,7 +82,6 @@ var calendar = {
 
 	init: function init() {
 		this.cacheDom();
-		this.createElements();
 		this.setCurrentDate();
 		this.loadCalendar();
 		this.bindEvents();
@@ -106,10 +105,6 @@ var calendar = {
 		this.tr = document.getElementsByTagName('tr');
 	},
 
-	createElements: function createElements() {
-		this.tableHeadTr = document.createElement('tr');
-	},
-
 	setCurrentDate: function setCurrentDate() {
 		this.now = new Date();
 		this.monthIndex = this.now.getMonth();
@@ -128,8 +123,9 @@ var calendar = {
 		//set the h1 tag in caption for a current month and year
 		this.month.innerHTML = this.polishMonths[this.monthIndex] + ' ' + this.year;
 
-		this.tableHeadTr.id = 'dayName';
-		this.tableHead.appendChild(this.tableHeadTr);
+		tableHeadTr = document.createElement('tr');
+		tableHeadTr.id = 'dayName';
+		this.tableHead.appendChild(tableHeadTr);
 
 		this.createTableHeader();
 		//creates body of the calendar table
@@ -175,7 +171,7 @@ var calendar = {
 		for (var i = 0; i < this.polishDaysLength; i++) {
 			th = document.createElement('th');
 			th.textContent = this.polishDays[i];
-			this.tableHeadTr.appendChild(th);
+			tableHeadTr.appendChild(th);
 		}
 	},
 
@@ -185,7 +181,6 @@ var calendar = {
 	},
 
 	previousMonth: function previousMonth(event) {
-
 		for (var i = this.tr.length; i--;) {
 			this.tr[i].remove();
 		};
