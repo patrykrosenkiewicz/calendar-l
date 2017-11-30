@@ -77,10 +77,12 @@
         @yield('content')
         @yield('calendar')
         @yield('task')
+        @yield('edit')
     </div>
 
+    @section('scripts')
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/calendar.js') }}"></script>
+    @show
 </body>
 </html>

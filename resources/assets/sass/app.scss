@@ -12,104 +12,31 @@
 
 $thin-border: 2px solid $red;
 
-body {
-  background-color: $red;
-  color: $black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Montserrat';
-  font-weight: 700;
-  min-height: 100vh;
+body{
+  padding-top: 60px;
 }
 
-main {
-  background-color: $cream;
-  flex-basis: 980px;
+.month{
+  display: inline;
 }
 
-.calendar-container{
-  background-color: #FFAAAA;
+.calendar-nav{
+  display: inline;
 }
 
-.calendar {
-  table-display: fixed;
-  width: 100%;
-  min-height: 50vh;
-}
-.calendar-heading{
-  display: table;
-  margin:0 auto;
+.calendar__banner--month{
+  text-align: center;
 }
 
-.calendar-description{
-  display: table;
-  margin:0 auto;
+.table{
+  height: 50vh;
+  text-align: center;
 }
 
 .current{
-  background-color: green;
-}
-.calendar__day__header,
-.calendar__day__cell {
-  border: $thin-border;
-  text-align: center;
-  width: 100% / 7; // fix width
-  height: 100% / 6;
-  vertical-align: middle;
-  &:first-child {
-    border-left: none;
-  }
-  &:last-child {
-    border-right: none;
-  }
+  background-color: #404347;
 }
 
-.calendar__day__header,
-.calendar__day__cell {
-  padding: .75rem 0 1.5rem;
+@media screen and (max-width: 768px) {
+    body { padding-top: 30px; }
 }
-
-.calendar__banner--month {
-  text-align: center;
-  padding: .75rem;
-  h1 {
-    background-color: $black;
-    color: $cream;
-    display: inline-block;
-    font-size: 3rem;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    padding: .5rem 2rem;
-    text-transform: uppercase;
-  }
-}
-
-.calendar__day__header {
-  font-size: 1rem;
-  max-width: 100% / 7;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.calendar__day__cell {
-  font-size: 3rem;
-  position: relative;
-}
-
-tr:nth-child(odd) > .calendar__day__cell:nth-child(odd) {
-  color: $red;
-}
-
-tr:nth-child(even) > .calendar__day__cell:nth-child(even) {
-  color: $red;
-}
-
-.task-body{
-  display: block;
-}
-
-#month{
-  min-width: 400px;
-}
-

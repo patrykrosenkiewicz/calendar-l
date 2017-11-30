@@ -20,11 +20,7 @@ Auth::routes();
 #set current date with all uncomplited tasks than call the makeCalendar method
 Route::get('/calendar', 'CalendarController@makeCalendar');
 
-
-
-Route::get('/{month}/{day}/{year}', 'TaskController@index');
-
-Route::post('/task', 'TaskController@store');
+Route::resource('task', 'TaskController');
 
 
 Route::get('/logout', function(){

@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
-@section('task')
+@section('edit')
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-			<h1 class="col-12">Plan something for your chosen date: {{$date}}</h1>
-			<form class="" action="/task" method="post">
+			<h1 class="col-12">Edit: {{$task->task_date}}</h1>
+			<form class="" action="/task/{{$id}}" method="post">
+				<input type="hidden" name="_method" value="PUT">
 				<div class="form-group">
 				  {{ csrf_field() }}
 
@@ -18,28 +20,9 @@
     		      	<textarea class="form-control" id="bodyTextarea" name="body" placeholder="what do you want to do?" rows="3" required></textarea>
     		      </div>
 				</div>
-				<input type="hidden" name="task_date" value="{{$date}}">
+				<input type="hidden" name="task_date" value="{{$task->task_date}}">
 				<input class="btn btn-primary" type="submit" name="submit" value="submit">
 			</form>
-
-
-			@if(count($tasks)>=1)
-				<h1>Your tasks for this day</h1>
-			<ul>
-			  @foreach ($tasks as $task)
-			  <li id="">
-			    {{$task->title}}
-			  	<a href="/task/{{$task->id}}/edit">edit</a>
-			  </li>
-			  <p class="task-body">
-			  	{{$task->body}}
-			  </p>
-			  @endforeach
-			</ul>
-			@else
-			<h1>You have no tasks for this day</h1>
-			@endif
 		</div>
 	</div>
 </div>
-@endsection

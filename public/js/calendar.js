@@ -82,6 +82,7 @@ var calendar = {
 
 	init: function init() {
 		this.cacheDom();
+		this.createElements();
 		this.setCurrentDate();
 		this.loadCalendar();
 		this.bindEvents();
@@ -105,6 +106,10 @@ var calendar = {
 		this.tr = document.getElementsByTagName('tr');
 	},
 
+	createElements: function createElements() {
+		this.tableHeadTr = document.createElement('tr');
+	},
+
 	setCurrentDate: function setCurrentDate() {
 		this.now = new Date();
 		this.monthIndex = this.now.getMonth();
@@ -123,26 +128,21 @@ var calendar = {
 		//set the h1 tag in caption for a current month and year
 		this.month.innerHTML = this.polishMonths[this.monthIndex] + ' ' + this.year;
 
-		tableHeadTr = document.createElement('tr');
-		tableHeadTr.id = 'dayName';
-		this.tableHead.appendChild(tableHeadTr);
+		this.tableHeadTr.id = 'dayName';
+		this.tableHead.appendChild(this.tableHeadTr);
 
-		//creates a header of the calendar with polish days
-		for (var i = 0; i < this.polishDaysLength; i++) {
-			th = document.createElement('th');
-			th.className = 'calendar__day__header';
-			th.textContent = this.polishDays[i];
-			tableHeadTr.appendChild(th);
-		};
+		this.createTableHeader();
 		//creates body of the calendar table
 		do {
 			tr = document.createElement('tr');
 			this.tableBody.appendChild(tr);
 			//loops through each week
-			for (i = 0; i < 7; i++) {
+			for (i = 0; i < this.polishDaysLength; i++) {
 				td = document.createElement('td');
+				td.className = "calendar-cell";
 				aLink = document.createElement('a');
-				aLink.href = this.tempDate.getDate() + '/' + (this.monthIndex + 1) + '/' + this.tempDate.getFullYear();
+				aLink.className = "calendar-link";
+				aLink.href = 'task/' + this.tempDate.getFullYear() + '-' + (this.monthIndex + 1) + '-' + this.tempDate.getDate();
 
 				//concatenate date parts into a string
 				var dateIncluded = '"' + this.tempDate.getFullYear() + '-' + (this.monthIndex + 1) + '-' + this.tempDate.getDate() + '"';
@@ -151,24 +151,32 @@ var calendar = {
     given by back-end Laravel
     format: json
     */
-				if (tasksDates.includes(dateIncluded)) {
-					aLink.textContent = this.tempDate.getDate() + '!';
-				} else {
-					aLink.textContent = this.tempDate.getDate();
-				};
-
+				if (tasksDates) {
+					if (tasksDates.includes(dateIncluded)) {
+						aLink.textContent = this.tempDate.getDate() + '!';
+					} else {
+						aLink.textContent = this.tempDate.getDate();
+					};
+				}
 				td.appendChild(aLink);
 
 				tr.appendChild(td);
 				if (this.tempDate.getDate() == this.now.getDate() && this.tempDate.getMonth() == this.monthIndex) {
-					td.className = 'calendar__day__cell current';
-				} else {
-					td.className = 'calendar__day__cell';
+					td.className = 'calendar-cell current';
 				}
 				//set date for a next day
 				this.tempDate.setDate(this.tempDate.getDate() + 1);
 			};
 		} while (this.tempDate.getMonth() == this.monthIndex);
+	},
+
+	createTableHeader: function createTableHeader() {
+		//creates a header of the calendar with polish days
+		for (var i = 0; i < this.polishDaysLength; i++) {
+			th = document.createElement('th');
+			th.textContent = this.polishDays[i];
+			this.tableHeadTr.appendChild(th);
+		}
 	},
 
 	bindEvents: function bindEvents() {
@@ -219,6 +227,13 @@ var calendar = {
 		};
 
 		this.loadCalendar();
+	},
+
+	taskClick: function taskClick() {
+		/*
+  getElementById.preventDefault()
+  send with a value of href to /task
+  */
 	}
 
 };

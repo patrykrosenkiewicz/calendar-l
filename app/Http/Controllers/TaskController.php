@@ -29,14 +29,12 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($day, $month, $year)
+    public function show($date)
     {
         #returns view of a day with all the tasks for the day
-
-        $date = $year.'-'.$month.'-'.$day;
         $tasks = \DB::table("tasks")->where('task_date', '=', $date)->get();
 
-        return view('task', compact('tasks', 'day', 'month', 'year', 'date'));
+        return view('task', compact('tasks','date'));
     }
 
     public function store(){
@@ -55,7 +53,22 @@ class TaskController extends Controller
 
     }
 
-    public function currentDayTask(){
+    public function edit($id){
+        $task = $this->task::find($id);
+        return view('edit', compact('id', 'task'));
+    }
+
+    public function update($id){
+      $task = $this->task;
         
+      $task = $task->find($id);
+
+      $task->title = request('title');
+      $task->body = request('body');
+      $task->task_date = request('task_date');
+
+      $task->save();
+
+      return redirect('/task/'.request('task_date'));
     }
 }
